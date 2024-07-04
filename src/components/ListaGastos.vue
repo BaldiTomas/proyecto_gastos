@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 6 // Elementos por página
+      itemsPerPage: 5 // Elementos por página
     };
   },
   computed: {
@@ -71,10 +71,10 @@ export default {
       }
     },
     editarGasto(gasto) {
-      this.$emit('editar-gasto', gasto); // Emitir evento editar-gasto
+      this.$emit('editar-gasto', gasto);
     },
     eliminarGasto(gasto) {
-      this.$emit('eliminar-gasto', gasto); // Emitir evento eliminar-gasto
+      this.$emit('eliminar-gasto', gasto);
     }
   }
 };
@@ -88,7 +88,7 @@ export default {
   border-radius: 5px;
   background-color: #f9f9f9;
   overflow: auto;
-  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+  font-family: 'Roboto', sans-serif;
 }
 
 .page-title {
@@ -122,7 +122,7 @@ export default {
 .acciones {
   display: flex;
   gap: 10px;
-  justify-content: flex-start; /* Alinear acciones a la izquierda */
+  justify-content: flex-start;
 }
 
 .lista-gastos button {
@@ -137,7 +137,7 @@ export default {
 }
 
 .lista-gastos button.editar {
-  background-color: #007bff;
+  background-color: #69cd68;
 }
 
 .lista-gastos button.eliminar {
@@ -145,7 +145,7 @@ export default {
 }
 
 .lista-gastos button:hover {
-  background-color: #0056b3;
+  background-color: #69cd68;
 }
 
 .lista-gastos button.eliminar:hover {

@@ -10,7 +10,7 @@
       <dashboard :gastos="gastos"></dashboard>
       <lista-gastos :gastos="filteredGastos" @editar-gasto="editGasto" @eliminar-gasto="deleteGasto"></lista-gastos>
     </div>
-    <!-- Modal o componente de edición de gasto -->
+    <!-- Modal de edición de gasto -->
     <div v-if="showEditModal" class="modal">
       <div class="modal-content">
         <span class="close" @click="closeEditModal">&times;</span>
@@ -99,7 +99,7 @@ export default {
             gastosList.push({ id, ...gastos[id] });
           }
           this.gastos = gastosList;
-          this.filteredGastos = gastosList; // Inicialmente, mostrar todos los gastos
+          this.filteredGastos = gastosList;
         } else {
           this.gastos = [];
           this.filteredGastos = [];
@@ -123,7 +123,6 @@ export default {
     },
 
     editGasto(gasto) {
-      // Asignar el gasto seleccionado para editar
       this.editedGasto.id = gasto.id;
       this.editedGasto.categoria = gasto.categoria;
       this.editedGasto.descripcion = gasto.descripcion;
@@ -159,14 +158,13 @@ export default {
       try {
         await remove(gastoRef);
         console.log('Gasto eliminado:', gasto);
-        this.cargarGastos(); // Actualizar lista de gastos después de eliminar
+        this.cargarGastos();
       } catch (error) {
         console.error('Error al eliminar el gasto:', error);
       }
     },
 
     closeEditModal() {
-      // Reiniciar el objeto editedGasto y ocultar el modal
       this.editedGasto = {
         id: null,
         categoria: '',
@@ -175,15 +173,6 @@ export default {
         fecha: ''
       };
       this.showEditModal = false;
-    },
-    cerrarSesion() {
-      signOut(auth)
-        .then(() => {
-          this.$router.push("/"); // Redirigir al usuario al componente Auth (login)
-        })
-        .catch((error) => {
-          console.error("Error al cerrar sesión:", error);
-        });
     }
   }
 };
@@ -194,7 +183,7 @@ export default {
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background: url('https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat center center;
+  background-image: url('~@/assets/billetes.jpeg');
   background-size: cover;
   border-radius: 20px;
 }
@@ -231,14 +220,14 @@ export default {
 .columna-izquierda{
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centrar verticalmente */
+  justify-content: center;
   flex: 1;
   max-width: 25%;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.8);
   padding: 1rem;
   border-radius: 10px;
-  margin-right: 1rem; /* Ajusta el espacio entre columnas */
+  margin-right: 1rem;
 }
 
 .columna-derecha {
@@ -247,16 +236,15 @@ export default {
   background: rgba(255, 255, 255, 0.8);
   padding: 1rem;
   border-radius: 10px;
-  margin-right: 10rem; /* Distancia del margen derecho */
+  margin-right: 10rem;
 }
 
 .contenedor {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centrar horizontalmente */
+  align-items: center;
 }
 
-/* Estilo para los componentes internos */
 .nuevo-gasto,
 .filtro-gastos {
   width: 100%;
@@ -296,23 +284,26 @@ export default {
 }
 
 .modal {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  max-width: 400px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .close {

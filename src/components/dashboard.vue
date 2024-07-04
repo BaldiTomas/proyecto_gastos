@@ -33,6 +33,6 @@ export default {
   font-size: 2.5rem;
   font-weight: bold;
   color: #333;
-  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+  font-family: 'Roboto', sans-serif;
 }
 </style>

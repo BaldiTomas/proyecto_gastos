@@ -87,7 +87,7 @@ export default {
   background-color: #f9f9f9;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  font-family: 'Roboto', sans-serif; /* Cambiar a una fuente moderna */
+  font-family: 'Roboto', sans-serif;
 }
 
 .form-title {
@@ -110,7 +110,7 @@ export default {
   border-radius: 5px;
   font-size: 1rem;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif; /* Asegurarse de que los inputs también usen la fuente */
+  font-family: 'Roboto', sans-serif;
 }
 
 .nuevo-gasto select {

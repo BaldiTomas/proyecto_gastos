@@ -103,13 +103,13 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('~@/assets/control-de-gastos.jpg'); /* Ruta a tu imagen de fondo */
+    background-image: url('~@/assets/control-de-gastos.jpg');
     background-size: cover;
     background-position: center;
   }
   
   .auth-box {
-    background: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+    background: rgba(255, 255, 255, 0.9);
     padding: 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -126,20 +126,24 @@
   .auth-box h2 {
     margin-bottom: 1.5rem;
     color: #333;
+    font-size: 1.5rem;
   }
   
   .auth-box form {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   
   .auth-box input {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    width: 100%;
+    max-width: 280px;
   }
   
   .auth-box input:focus {
@@ -148,7 +152,7 @@
   }
   
   .auth-box button {
-    padding: 0.75rem;
+    padding: 1rem;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -156,6 +160,8 @@
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 280px;
   }
   
   .auth-box button:hover {
@@ -165,21 +171,16 @@
   .auth-box .error {
     color: red;
     margin-top: 1rem;
+    text-align: center;
   }
   
   .auth-box p {
     margin-top: 1rem;
     font-size: 0.9rem;
-  }
-  
-  .auth-box a {
-    color: #007bff;
     cursor: pointer;
-    text-decoration: underline;
   }
   
-  .auth-box a:hover {
-    color: #0056b3;
+  .auth-box p:hover {
+    color: #007bff;
   }
-  </style>
-  
+  </style> 
