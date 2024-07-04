@@ -1,14 +1,14 @@
 <template>
   <div class="administrador">
     <div class="columna-izquierda">
-      <nuevo-gasto @gasto-agregado="cargarGastos"></nuevo-gasto>
-      <dashboard :gastos="gastos"></dashboard>
+      <div class="contenedor">
+        <nuevo-gasto @gasto-agregado="cargarGastos"></nuevo-gasto>
+        <filtro-gastos @filtro-aplicado="aplicarFiltro"></filtro-gastos>
+      </div>
     </div>
     <div class="columna-derecha">
-      <filtro-gastos @filtro-aplicado="aplicarFiltro"></filtro-gastos>
-      <lista-gastos :gastos="filteredGastos"
-                    @editar-gasto="editGasto"
-                    @eliminar-gasto="deleteGasto"></lista-gastos>
+      <dashboard :gastos="gastos"></dashboard>
+      <lista-gastos :gastos="filteredGastos" @editar-gasto="editGasto" @eliminar-gasto="deleteGasto"></lista-gastos>
     </div>
     <!-- Modal o componente de edición de gasto -->
     <div v-if="showEditModal" class="modal">
@@ -16,12 +16,21 @@
         <span class="close" @click="closeEditModal">&times;</span>
         <h3>Editar Gasto</h3>
         <form @submit.prevent="guardarEdicion">
-          <label>Categoría:</label>
-          <input type="text" v-model="editedGasto.categoria">
-          <label>Descripción:</label>
-          <input type="text" v-model="editedGasto.descripcion">
-          <label>Monto:</label>
-          <input type="number" v-model="editedGasto.monto">
+          <label>
+            Categoría:
+            <select v-model="editedGasto.categoria" required>
+              <option disabled value="">Seleccione una categoría</option>
+              <option v-for="categoria in categorias" :key="categoria" :value="categoria">{{ categoria }}</option>
+            </select>
+          </label>
+          <label>
+            Descripción:
+            <input type="text" v-model="editedGasto.descripcion">
+          </label>
+          <label>
+            Monto:
+            <input type="number" v-model="editedGasto.monto">
+          </label>
           <button type="submit">Guardar Cambios</button>
         </form>
       </div>
@@ -58,7 +67,8 @@ export default {
         descripcion: '',
         monto: 0,
         fecha: ''
-      }
+      },
+      categorias: ["Alimentación", "Transporte", "Entretenimiento", "Otros"]
     };
   },
 
@@ -119,7 +129,7 @@ export default {
       this.editedGasto.descripcion = gasto.descripcion;
       this.editedGasto.monto = gasto.monto;
       this.editedGasto.fecha = gasto.fecha;
-      
+
       // Mostrar el modal de edición
       this.showEditModal = true;
     },
@@ -128,7 +138,7 @@ export default {
       const { id, categoria, descripcion, monto } = this.editedGasto;
       const user = auth.currentUser;
       const gastoRef = ref(database, 'users/' + user.uid + '/gastos/' + id);
-      
+
       try {
         await update(gastoRef, {
           categoria,
@@ -165,6 +175,15 @@ export default {
         fecha: ''
       };
       this.showEditModal = false;
+    },
+    cerrarSesion() {
+      signOut(auth)
+        .then(() => {
+          this.$router.push("/"); // Redirigir al usuario al componente Auth (login)
+        })
+        .catch((error) => {
+          console.error("Error al cerrar sesión:", error);
+        });
     }
   }
 };
@@ -173,19 +192,76 @@ export default {
 <style scoped>
 .administrador {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1rem;
-  background: #f9f9f9;
+  background: url('https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat center center;
+  background-size: cover;
   border-radius: 20px;
 }
 
-.columna-izquierda {
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: #30190b;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.header-left h2 {
+  color: #fff;
+  margin: 0;
+}
+
+.header-right button {
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header-right button:hover {
+  background-color: #c9302c;
+}
+
+.columna-izquierda{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar verticalmente */
   flex: 1;
-  margin-right: 20px; /* Ajustar margen entre columnas */
+  max-width: 25%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-right: 1rem; /* Ajusta el espacio entre columnas */
 }
 
 .columna-derecha {
   flex: 1;
+  max-width: 40%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-right: 10rem; /* Distancia del margen derecho */
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar horizontalmente */
+}
+
+/* Estilo para los componentes internos */
+.nuevo-gasto,
+.filtro-gastos {
+  width: 100%;
+  min-width: 300px;
+  margin-bottom: 1rem;
 }
 
 .administrador h2 {
@@ -198,19 +274,20 @@ export default {
   flex-direction: column;
 }
 
-.administrador input {
+.administrador input,
+.administrador select,
+.administrador button {
   padding: 0.75rem;
   margin-bottom: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
+  font-size: 1rem;
 }
 
 .administrador button {
-  padding: 0.75rem;
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -218,12 +295,6 @@ export default {
   background-color: #0056b3;
 }
 
-.administrador .error {
-  color: red;
-  margin-top: 1rem;
-}
-
-/* Estilos para el modal de edición */
 .modal {
   display: block;
   position: fixed;
@@ -233,7 +304,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {

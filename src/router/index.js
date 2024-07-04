@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Auth from '../components/auth.vue'
 import administrador from '../components/administrador.vue'
+import ListaGastos  from '@/components/ListaGastos.vue'
 import { getAuth } from 'firebase/auth'
 
 Vue.use(VueRouter)
@@ -15,7 +16,12 @@ const routes = [
     path: '/dashboard',
     component: administrador,
     meta: { requiresAuth: true }
-  }
+  },
+  {
+    path: '/lista',
+    component: ListaGastos,
+    meta: { requiresAuth: true }
+  },
 ]
 
 const router = new VueRouter({
