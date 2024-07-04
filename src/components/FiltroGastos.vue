@@ -52,7 +52,7 @@ export default {
   border-radius: 5px;
   background-color: #f9f9f9;
   max-width: 400px;
-  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+  font-family: 'Roboto', sans-serif;
 }
 
 .form-title {

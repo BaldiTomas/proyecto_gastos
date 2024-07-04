@@ -2,6 +2,7 @@
   <div class="grafico-container">
     <h2 class="grafico-titulo">Gastos por Categoría</h2>
     <div ref="chart" class="grafico"></div>
+    <p v-if="datosGrafico.length === 0" class="no-gastos-msg">No hay gastos para mostrar.</p>
   </div>
 </template>
 
@@ -36,7 +37,7 @@ export default {
         return data;
       } else {
         console.error('Error: La propiedad "gastos" no está definida o está vacía');
-        return []; // Retornar un array vacío para evitar errores
+        return []; // Retorna un array vacío para evitar errores
       }
     }
   },
@@ -89,13 +90,12 @@ export default {
 
 <style scoped>
 .grafico-container {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  border: 1px solid #ccc;
   background-color: #f9f9f9;
   padding: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+  box-shadow: 0 2px 8px rgba(230, 9, 9, 0.1);
+  font-family: 'Roboto', sans-serif;
 }
 
 .grafico-titulo {
@@ -109,5 +109,11 @@ export default {
 .grafico {
   width: 100%;
   height: 400px;
+}
+
+.no-gastos-msg {
+  text-align: center;
+  color: #888;
+  margin-top: 20px;
 }
 </style>
