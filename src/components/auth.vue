@@ -7,9 +7,9 @@
           <h1>Mis Gastos</h1>
         </div>
         <div class="header-text">
-          <p class="tagline"><span class="checkmark">✔</span> Organiza tus gastos</p>
-          <p class="tagline"><span class="checkmark">✔</span> Visualiza los datos que necesitas</p>
-          <p class="tagline"><span class="checkmark">✔</span> Toma el control de tus finanzas</p>
+          <p class="tagline"><span class="checkmark">✔</span> Organizá tus gastos</p>
+          <p class="tagline"><span class="checkmark">✔</span> Visualizá los datos que necesitas</p>
+          <p class="tagline"><span class="checkmark">✔</span> Tomá el control de tus finanzas</p>
         </div>
       </div>
       <div class="auth-box" v-if="!isRegister">
