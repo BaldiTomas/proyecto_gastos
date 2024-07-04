@@ -14,14 +14,14 @@
   <script>
   export default {
     props: {
-      expenses: {
+      gastos: {
         type: Array,
         required: true
       }
     },
     methods: {
       calcularGastosTotales() {
-        return this.expenses.reduce((total, expense) => total + parseFloat(expense.monto), 0).toFixed(2);
+        return this.gastos.reduce((total, gasto) => total + parseFloat(gasto.monto), 0).toFixed(2);
       }
       // Puedes añadir más métodos para calcular otras métricas aquí
     }
